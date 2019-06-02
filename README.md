@@ -21,7 +21,7 @@
 * 時間型特徵
 
 ## Day19
-### 數值型特徵-補缺失值與標準化
+### 數值型特徵 - 補缺失值與標準化
 
 填補缺值的方式
 
@@ -42,3 +42,38 @@ from sklearn.preprocessing import StandardScaler
 MinMaxScaler().fit_transform(df)
 StandardScaler().fit_transform(df)
 ```
+
+## Day20
+### 數值型特徵 - 去除離群值
+
+調整離群值
+```
+df[column] = df[column].clip(min, max)
+```
+去除離群值
+```
+keep_indexs = (df[column] > min) & (df[column] < max)
+df = df[keep_indexs]
+```
+
+## Day21
+### 數值型特徵-去除偏態
+
+* 對數去偏
+* 方根去偏
+* 分布去偏(boxcox)
+
+```
+import numpy as np
+from scipy import stats
+
+df[column] = np.log1p(df[column])
+df[column] = stats.boxcox(df[column], lmbda=0.15)
+df[column] = stats.boxcox(df[column], lmbda=0.5)
+```
+
+## Day22
+### 類別型特徵 - 基礎處理
+
+* 標籤編碼(Label Encoding)
+* 獨熱編碼(One Hot Encoding)
